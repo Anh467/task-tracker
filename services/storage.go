@@ -59,7 +59,7 @@ func (v *TaskStorage) Update(taskUpdate models.TaskUpdate) (task models.Task, er
 	err = nil
 
 	for i, ele := range v.Tasks {
-		if(ele.Id == task.Id){
+		if(ele.Id == taskUpdate.Id){
 			index = i
 			task = ele
 			break
@@ -98,7 +98,7 @@ func (v *TaskStorage) GetById(id int) (task models.Task, err error){
 }
 
 func (v *TaskStorage) GetAllElement(status constants.Status) ([]models.Task, error){
-	var tasks []models.Task = v.Tasks
+	var tasks []models.Task
 	var err error = nil
 
 	if len(v.Tasks) == 0{
@@ -111,6 +111,8 @@ func (v *TaskStorage) GetAllElement(status constants.Status) ([]models.Task, err
 				tasks = append(tasks, ele)
 			}
 		}
+	}else{
+		tasks  = v.Tasks
 	}
 
 	return tasks, err
@@ -141,6 +143,7 @@ func (v *TaskStorage) SaveTasks() error{
 func (v *TaskStorage) ReadTasks() (err error) {
 	createPath()
 	var data []byte
+	var index int
 	dir, err := os.Getwd()
 	if err != nil {
 		return err 
@@ -163,8 +166,14 @@ func (v *TaskStorage) ReadTasks() (err error) {
 	if err != nil{
 		return
 	}
+	if(len(tasks)== 0){
+		index = 0
+	}else{
+		index = tasks[len(tasks) - 1].Id
+	}
 
 	v.Tasks = tasks
+	v.index = index
 	return nil
 }
 

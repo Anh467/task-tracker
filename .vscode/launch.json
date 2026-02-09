@@ -7,7 +7,7 @@
       "request": "launch",
       "mode": "debug",
       "program": "${workspaceFolder}",
-      "args": ["list"]
+      "args": ["list", "todo"]
     }
   ]
 }

@@ -103,7 +103,7 @@ func main() {
 		if(err != nil){
 			fmt.Printf("Fail: %s\n", err)
 		}else{
-			fmt.Printf("Success: Get all tasks successful %s\n", models.TasksToString(tasks))
+			fmt.Printf("Success: Get all tasks successful \n%s", models.TasksToString(tasks))
 		}
 
 	}
